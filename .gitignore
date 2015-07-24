@@ -1,0 +1,5 @@
+*.swp
+/platforms
+/plugins
+/www/index.html
+/src/elm-stuff
