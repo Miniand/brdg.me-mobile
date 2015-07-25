@@ -1,22 +1,27 @@
-import Html exposing (div, button, text)
-import Html.Events exposing (onClick)
-import StartApp
+import Html
+import Html.Attributes
+import Router exposing (..)
+import History
 
-main =
-  StartApp.start { model = model, view = view, update = update }
+main : Signal Html.Html
+main = Signal.map route History.hash
 
-model = 0
+route : Route Html.Html
+route = match
+  [ ""      :-> displayHome
+  , "#games" :-> displayGames
+  ] display404
 
-view address model =
-  div []
-    [ button [ onClick address Decrement ] [ text "-" ]
-    , div [] [ text (toString model) ]
-    , button [ onClick address Increment ] [ text "+" ]
+displayHome = always (Html.div []
+  [ Html.div [] [ Html.text "Home page" ]
+  , Html.div []
+    [ Html.a [ Html.Attributes.href "#games" ] [ Html.text "Games" ]
     ]
-
-type Action = Increment | Decrement
-
-update action model =
-  case action of
-    Increment -> model + 1
-    Decrement -> model - 1
+  ])
+displayGames = always (Html.div []
+  [ Html.div [] [ Html.text "Games" ]
+  , Html.div []
+    [ Html.a [ Html.Attributes.href "#" ] [ Html.text "Home" ]
+    ]
+  ])
+display404 = always (Html.text "Page not found")
