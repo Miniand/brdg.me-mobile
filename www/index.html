@@ -4,22 +4,9 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>brdg.me</title>
-      <link rel="stylesheet" href="./mdl/material.min.css">
-      <script src="./mdl/material.min.js"></script>
-      <link rel="stylesheet" href="./mdl/material-icons.css">
-      <link rel="stylesheet" href="./mdl/roboto.css">
       <script type="text/javascript" src="./brdg.me.js"></script>
    </head>
    <body>
-      <script>
-var observer = new MutationObserver(function() {
-   componentHandler.upgradeAllRegistered();
-});
-observer.observe(document.querySelector('body'), {
-   childList: true,
-   subtree: true
-});
-Elm.fullscreen(Elm.Main);
-      </script>
+      <script>Elm.fullscreen(Elm.Main);</script>
    </body>
 </html>

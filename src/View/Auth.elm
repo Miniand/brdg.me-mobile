@@ -2,8 +2,8 @@ module View.Auth where
 
 import StartApp
 import Html
-import Html.Attributes
-import Html.Events
+import Html.Attributes as Attr
+import Html.Events as Evt
 import Json.Decode
 
 main : Signal Html.Html
@@ -46,7 +46,7 @@ update action model =
 view : Signal.Address Action -> Model -> Html.Html
 view address model =
   Html.form 
-    [ Html.Events.onWithOptions
+    [ Evt.onWithOptions
       "submit"
       { stopPropagation = False, preventDefault = True }
       Json.Decode.value
@@ -54,26 +54,24 @@ view address model =
     ]
     [ Html.div []
       [ Html.input
-        [ Html.Attributes.class "mdl-textfield__input"
-        , Html.Attributes.placeholder "Email address"
-        , Html.Attributes.value model.email
-        , Html.Attributes.disabled model.sending
-        , Html.Events.on
+        [ Attr.placeholder "Email address"
+        , Attr.value model.email
+        , Attr.disabled model.sending
+        , Evt.on
           "input"
-          Html.Events.targetValue
+          Evt.targetValue
           (\str -> Signal.message address (UpdateEmail str))
         ]
         []
       ]
     , Html.div []
       [ Html.input
-        [ Html.Attributes.class "mdl-textfield__input"
-        , Html.Attributes.placeholder "Code"
-        , Html.Attributes.value model.confirmation
-        , Html.Attributes.disabled model.sending
-        , Html.Events.on
+        [ Attr.placeholder "Code"
+        , Attr.value model.confirmation
+        , Attr.disabled model.sending
+        , Evt.on
           "input"
-          Html.Events.targetValue
+          Evt.targetValue
           (\str -> Signal.message address (UpdateConfirmation str))
         ]
         []
@@ -82,10 +80,9 @@ view address model =
       (if model.sending then [ Html.text "sending" ] else [])
     , Html.div []
       [ Html.button
-        [ Html.Attributes.type' "submit"
-        , Html.Attributes.class "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-        , Html.Attributes.disabled model.sending
+        [ Attr.type' "submit"
+        , Attr.disabled model.sending
         ]
-        [ Html.text "Log in" ]
+        [ Html.text (if model.confirmation == "" then "Log in" else "Confirm") ]
       ]
     ]
