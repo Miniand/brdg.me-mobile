@@ -44,6 +44,7 @@ setPaths = Signal.map SetPath History.hash
 appMailbox : Signal.Mailbox Action
 appMailbox = Signal.mailbox NoOp
 
+actions : Signal Action
 actions = Signal.merge setPaths appMailbox.signal
 
 init : Model
@@ -52,6 +53,7 @@ init =
   , path = ""
   }
 
+main : Signal Html.Html
 main =
   Signal.map (view appMailbox.address)
     (Signal.foldp update init actions)

@@ -31,16 +31,16 @@ update : Action -> Model -> Model
 update action model =
   case action of
     Submit ->
-      { model |
-        sending <- True
+      { model
+      | sending <- True
       }
     UpdateEmail newEmail ->
-      { model |
-        email <- newEmail
+      { model
+      | email <- newEmail
       }
     UpdateConfirmation newConfirmation ->
-      { model |
-        confirmation <- newConfirmation
+      { model
+      | confirmation <- newConfirmation
       }
 
 view : Signal.Address Action -> Model -> Html.Html
